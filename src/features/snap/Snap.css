@@ -1,0 +1,18 @@
+.snap-container { 
+  margin-top: 5%;
+}
+
+.card-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.card-frame {
+  min-width: 220px;
+  min-height: 320px;
+  border: 1px solid black;
+}
+
+.draw-btn {
+  margin: 0 auto;
+}
