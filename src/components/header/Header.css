@@ -4,5 +4,21 @@
 }
 
 .header-title {
-  font-size: 14px;
+  font-size: 22px;
+  width: 50%;
+  margin: 5px 10px;
+  display: inline-block;
+}
+
+.header-circle {
+  border: 1px solid black;
+  border-radius: 50%;
+  float: right;
+  margin: 5px 5px;
+  min-height: 20px;
+  min-width: 20px;
+}
+
+.blue {
+  border-color: blue;
 }

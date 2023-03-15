@@ -15,17 +15,20 @@ const Snap = () => {
 
   useEffect(() => {
     const fetchDeck = async () => {
-      // const deckResponse = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1');
-      // const fetchedDeck = await deckResponse.json();
-      const fetchedDeck = { "success": true, "deck_id": "jcmouwp3wrt6", "remaining": 52, "shuffled": true };
-      setDeck(fetchedDeck);
+      try {
+        const deckResponse = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1');
+        const fetchedDeck = await deckResponse.json();
+        setDeck(fetchedDeck);
+      } catch (error) {
+        alert('Error fetching data from deckofcardsapi.com');
+        console.log(error);
+      }
     };
     fetchDeck();
   }, []);
 
   useLayoutEffect(() => {
     const checkMatchingCards = () => {
-      console.log('here', currentCard, previousCard);
       if (currentCard.suit === previousCard.suit) {
         setSnapSuitCount(snapSuitCount => snapSuitCount + 1);
         setMatchStatus('SNAP SUIT!');
@@ -47,7 +50,7 @@ const Snap = () => {
   const drawCard = async () => {
     const fetchedDraw = await fetchDraw();
     const fetchedCard = fetchedDraw.cards[0];
-    const isLastCard = fetchedDraw.remaining === 0;
+    const isLastCard = cards.length === 52;
 
     if (isLastCard) setAllCardsWithdrawn(true);
     setCurrentCard(fetchedCard);
@@ -56,15 +59,40 @@ const Snap = () => {
   };
 
   const fetchDraw = async () => {
-    const drawResponse = await fetch(`https://deckofcardsapi.com/api/deck/${deck.deck_id}/draw/?count=1`);
-    const fetchedDraw = await drawResponse.json();
-    return fetchedDraw;
+    try {
+      const drawResponse = await fetch(`https://deckofcardsapi.com/api/deck/${deck.deck_id}/draw/?count=1`);
+      const fetchedDraw = await drawResponse.json();
+      return fetchedDraw;
+    } catch (error) {
+      alert('Error fetching data from deckofcardsapi.com');
+      console.log(error);
+    }
   };
+
+  const calculateNextSnapValueChance = () => {
+    const sameValueOnHand = cards.filter(card => card.value === currentCard.value).length;
+    const remaining = 4 - sameValueOnHand;
+    return Math.round((remaining / (52 - cards.length)) * 100);
+  };
+
+  const calculateNextSnapSuitChance = () => {
+    const sameSuitOnHand = cards.filter(card => card.suit === currentCard.suit).length;
+    const remaining = 13 - sameSuitOnHand;
+    return Math.round((remaining / (52 - cards.length)) * 100);
+  }
 
   return (
     <div className='snap-container'>
       <div className='snap-status'>
         <h2>{matchStatus}</h2>
+        {currentCard && (
+          <div className='draw-predictions'>
+            <span>Card {cards.length} of 52</span>
+            <span>Next Snap Suit Chance: {calculateNextSnapSuitChance()}%</span>
+            <span>Next Snap Value Chance: {calculateNextSnapValueChance()}%</span>
+            <span></span>
+          </div>
+        )}
       </div>
 
       <div className='cards-container'>
@@ -77,10 +105,10 @@ const Snap = () => {
       </div>
 
       {allCardsWithdrawn ? (
-        <div className='snap-count'>
+        <>
           <h2>VALUE MATCHES: {snapValueCount}</h2>
           <h2>SUIT MATCHES: {snapSuitCount}</h2>
-        </div>
+        </>
       ) : (
         <button onClick={debounce(drawCard, 500)} className='draw-btn'>Draw card</button>
       )}
