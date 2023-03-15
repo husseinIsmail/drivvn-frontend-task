@@ -82,9 +82,7 @@ const Snap = () => {
           <h2>SUIT MATCHES: {snapSuitCount}</h2>
         </div>
       ) : (
-        <div className='draw-btn'>
-          <button onClick={debounce(drawCard, 500)}>Draw card</button>
-        </div>
+        <button onClick={debounce(drawCard, 500)} className='draw-btn'>Draw card</button>
       )}
     </div>
   );

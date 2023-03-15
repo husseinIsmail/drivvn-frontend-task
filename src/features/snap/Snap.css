@@ -14,9 +14,15 @@
 .card-frame {
   min-width: 220px;
   min-height: 320px;
-  border: 1px solid black;
+  border: 2px solid black;
 }
 
 .draw-btn {
-  margin-top: 30px;
+  font-size: 1rem;
+  margin-top: 50px;
+  padding: 30px;
+  background-color: rgb(24, 124, 255);
+  color: white;
+  border-radius: 10px;
+  border: 1px solid black;
 }
