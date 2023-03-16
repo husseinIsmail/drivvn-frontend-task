@@ -3,7 +3,7 @@
 import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../../App';
-import fakeDeck from '../../pages/test-data/fakeDeck';
+import fakeDeck from '../../test-data/fakeDeck';
 
 describe('Snap Card Game', () => {
   beforeEach(() => {
