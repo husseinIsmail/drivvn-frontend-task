@@ -1,13 +1,14 @@
 .snap-container {
   text-align: center;
+  margin-top: 15px;
 }
 
 .upper-info {
   min-height: 105px;
-  margin-bottom: 30px;
 }
 
 .cards-container {
+  margin-top: 30px;
   display: flex;
   justify-content: space-around;
 }
