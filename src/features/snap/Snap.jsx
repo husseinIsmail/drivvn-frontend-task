@@ -1,5 +1,7 @@
 import { useEffect, useState, useLayoutEffect } from 'react';
-import Card from '../../components/card/Card';
+import Card from '../../components/Card/Card';
+import GameStats from '../../components/GameStats/GameStats';
+import DrawPredictions from '../../components/DrawPredictions/DrawPredictions';
 import './Snap.css';
 
 const Snap = () => {
@@ -67,16 +69,12 @@ const Snap = () => {
     <>
       {deck && (
         <div className='snap-container'>
-          <div className='snap-status'>
-            <h2>{snapStatus}</h2>
-            {currentCard && (
-              <div className='draw-predictions'>
-                <span>Card {cards.length} of 52</span>
-                <span>Next Snap Suit Chance: {calculateNextSnapSuitChance()}%</span>
-                <span>Next Snap Value Chance: {calculateNextSnapValueChance()}%</span>
-                <span></span>
-              </div>
-            )}
+          <div className='upper-info'>
+            {currentCard && <DrawPredictions
+              snapSuitChance={calculateNextSnapSuitChance()}
+              snapValueChance={calculateNextSnapValueChance()}
+              currentCardIndex={cards.length}
+              snapStatus={snapStatus} />}
           </div>
 
           <div className='cards-container'>
@@ -89,10 +87,7 @@ const Snap = () => {
           </div>
 
           {deck.length === 0 ? (
-            <>
-              <h2>VALUE MATCHES: {snapValueCount}</h2>
-              <h2>SUIT MATCHES: {snapSuitCount}</h2>
-            </>
+            <GameStats snapValueCount={snapValueCount} snapSuitCount={snapSuitCount} />
           ) : (
             <button onClick={drawCard} className='draw-btn'>Draw card</button>
           )}

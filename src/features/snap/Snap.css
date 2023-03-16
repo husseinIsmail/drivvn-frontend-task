@@ -2,9 +2,9 @@
   text-align: center;
 }
 
-.snap-status {
-  min-height: 100px;
-  margin-bottom: 25px;
+.upper-info {
+  min-height: 105px;
+  margin-bottom: 30px;
 }
 
 .cards-container {
@@ -26,12 +26,4 @@
   color: white;
   border-radius: 10px;
   border: 1px solid black;
-}
-
-.draw-predictions {
-  margin-top: 20px;
-}
-
-.draw-predictions > span {
-  display: block;
 }

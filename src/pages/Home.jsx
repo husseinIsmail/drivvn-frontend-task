@@ -1,5 +1,5 @@
-import Header from "../components/header/Header";
-import Snap from "../features/snap/Snap";
+import Header from '../components/Header/Header';
+import Snap from '../features/Snap/Snap';
 
 const Home = () => {
   return (

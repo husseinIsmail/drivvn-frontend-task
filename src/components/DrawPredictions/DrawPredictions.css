@@ -1,0 +1,11 @@
+.snap-status {
+  min-height: 30px;
+}
+
+.draw-predictions {
+  margin-top: 20px;
+}
+
+.draw-predictions > span {
+  display: block;
+}
